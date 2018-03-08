@@ -1,0 +1,206 @@
+.hidden {
+    visibility: hidden;
+
+}
+
+.show {
+    visibility: visible;
+}
+
+.status {
+   font-size: 1em;
+   display: inline-block;
+}
+
+.name {
+    font-size: 2em;
+    display: inline;
+}
+
+#profilbild {
+    border-radius: 50%;
+    display: inline-block;
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+
+#content {
+    padding-top: 1em;
+    padding-left: 1em;
+    display: inline-block;
+}
+
+
+#follower {
+    display: inline-block;
+    float: right;
+    text-align: center;
+    padding-right: 5em;
+}
+
+#followbutton {
+    display: inline-block;
+    padding-top: 7%;
+    vertical-align:middle;
+
+    
+}
+
+#followcount {
+    display: inline-block;
+    vertical-align:middle;
+    padding-left: 10px;
+
+}
+
+#line {
+    width: 100%;
+    border-color: #FFB2B2;
+}
+
+
+#followcount h3 {
+    top: 20;
+    vertical-align:middle;
+}
+#floatright {
+    padding-top: 2%;
+    float: right;
+    padding-right: 10%;
+}
+
+#bilder {
+    text-align: center;
+}
+
+#gallery {
+    padding-top: 4px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.feed-photo{
+    width: 100%;
+    position: relative;
+}
+
+.feed-header {
+    vertical-align: middle;
+    padding-bottom: 10px;
+    border: 1px solid #FFB2B2;
+    width: 100%;
+}
+
+.feed-element {
+    margin: auto;
+    width: 40%;
+    padding-bottom: 5%;
+}
+
+.feed-profilbild{
+    border-radius: 50%;
+    height: 46px;
+    width: 46px;
+    margin-left: 2%;
+    margin-bottom: 2%;
+}
+
+
+
+.feed-username {
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 1.5em;
+    padding-top: 20px;
+    text-decoration: none;
+}
+
+.feed-usernam {
+    color: black;
+    text-decoration: none;
+}
+
+.feed-usernam:hover {
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid #FFB2B2;
+}
+
+
+
+
+.searchname a:hover {
+    border-bottom: 1px solid #FFB2B2;
+    color: black;
+}
+
+.searchname a{
+    text-decoration: none; 
+    color: black;
+}
+
+#functionside {
+    width: 5%;
+    height: 20%;
+    position: absolute;
+    margin-left: -5%;
+}
+
+#functionside ul {
+    padding-top: 20%;
+    padding-left: 45%;
+}
+
+#functionside ul li{
+    list-style: none;
+    padding: 1em;
+
+}
+
+#functionside span{
+    font-size: 200%;
+
+}
+
+.iconsside, .iconsside-heart {
+    color:black;
+}
+
+.iconsside-heart:hover {
+    color:red;
+    transition-delay: 0.1ms;
+}
+
+.btn-default {
+    border-color: #FFB2B2;
+}
+
+.btn-default:hover {
+    border-color: #FFB2B2;
+    background-color:rgba(255,178,178,0.3);
+}
+
+#search {
+    border-color: #FFB2B2;
+}
+
+.heartred {
+    color: red;
+}
+
+.iconsside-count {
+    color: black;
+    font-size: 1.2em;
+    text-align: center;
+    padding-left: 45%;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.iconsside-count:hover {
+    text-decoration: none;
+    cursor: default;
+}

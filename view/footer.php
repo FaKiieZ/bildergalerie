@@ -1,6 +1,6 @@
       <hr>
       <footer>
-        <p>&copy; Copyright gibb</p>
+        <p>&copy; Copyright Remo & Jan</p>
       </footer>
     </div>
     <script src="<?=$GLOBALS['appurl']?>/js/jquery.min.js"></script>

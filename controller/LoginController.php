@@ -11,7 +11,6 @@ require_once '../repository/LoginRepository.php';
      */
     public function index()
     {
-      $loginRepository = new LoginRepository();
       $view = new View('login_index');
       $view->title = 'Bilder-DB';
       $view->heading = 'Login';
@@ -27,6 +26,13 @@ require_once '../repository/LoginRepository.php';
       $view->title = 'Bilder-DB';
       $view->heading = 'Registration';
       $view->display();
+    }
+
+    public function login(){
+        $loginRepository = new LoginRepository();
+        if (isset($_POST['email']) && isset($_POST['passwort'])){
+
+        }
     }
 }
 ?>

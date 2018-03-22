@@ -3,10 +3,8 @@ require_once '../lib/Repository.php';
 /**
  * Datenbankschnittstelle für die Benutzer
  */
-  class LoginRepository extends Repository
+  class UserRepository extends Repository
   {
-      public function login(){
-
-      }
+      protected $tableName = 'kunde';
   }
 ?>

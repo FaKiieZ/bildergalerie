@@ -1,6 +1,4 @@
 <?php
-
-    session_start();
     // Falls vom Controller ein Error kommt, wird eine Fehlermeldung ausgegeben.
     if(isset($error) && $error){
         echo('<div class="alert alert-danger"><strong>Error!</strong> Benutzername oder Passwort falsch!
@@ -8,7 +6,7 @@
     }
     // Kontrolliert ob eine gültige Session aktiv ist.
     if(isset($_SESSION['besucht']) && $_SESSION['besucht'] == true){
-        header("Location: " .$GLOBALS['appurl'] . "/default");
+        header("Location: " .$GLOBALS['appurl']);
         exit;
     }
 

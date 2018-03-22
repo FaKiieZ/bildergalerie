@@ -69,7 +69,7 @@ require_once '../repository/UserRepository.php';
           }
           // Falls Login korrekt, Weiterleitung zum Feed
           else{
-              header("Location: " .$GLOBALS['appurl']);
+              header("Location: " .$GLOBALS['appurl'] .  "/gallery" );
               die();
           }
       }

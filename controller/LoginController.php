@@ -75,7 +75,7 @@ require_once '../repository/UserRepository.php';
        * überprüft ob der User schon existiert, wenn ja was schon existiert. Sonst erstellt es einen User
        */
       public function createUser() {
-          if (isset ( $_POST ['username'] ) && filter_var ( $_POST ['email'], FILTER_VALIDATE_EMAIL ) && isset ( $_POST ['password'] )) {
+          if (isset ( $_POST ['username'] ) && filter_var ( $_POST ['email'], FILTER_VALIDATE_EMAIL ) && isset ( $_POST ['password'] ) && isset ( $_POST ['passwordbestätigt'])) {
 
               $username = $_POST ['username'];
               $email = $_POST ['email'];
@@ -101,7 +101,15 @@ require_once '../repository/UserRepository.php';
                   $view->heading = 'Register';
                   $view->message = "Die eingebene E-Mail Adresse existiert schon";
                   $view->display ();
-              } else {
+              }
+              elseif ( $_POST ['passwordbestätigt'] != $_POST ['password']) {
+                  $view = new View ( 'login_registration' );
+                  $view->title = 'Register';
+                  $view->heading = 'Register';
+                  $view->message = "Die Passwörter stimmen nicht überein";
+                  $view->display ();
+                  }
+              else {
 
                   $user_id = $userRepository->create($username, $passwort, $email);
                   session_start();

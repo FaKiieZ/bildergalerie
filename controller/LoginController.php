@@ -86,18 +86,38 @@ require_once '../repository/UserRepository.php';
 
               $userRepository = new UserRepository();
 
-                  $user_id = $userRepository->create ( $username, $passwort, $email );
+              if ($userRepository->userAlreadyExistsByName ( $username ) && $userRepository->userAlreadyExistsByEmail ( $email )) {
+                  $view = new View ( 'login_registration' );
+                  $view->title = 'Register';
+                  $view->heading = 'Register';
+                  $view->message = "Der eingegebene Benutzername und die E-Mail Adresse existiern schon.";
+                  $view->display ();
+              } elseif ($userRepository->userAlreadyExistsByName ( $username )) {
+                  $view = new View ( 'login_registration' );
+                  $view->title = 'Register';
+                  $view->heading = 'Register';
+                  $view->message = "Der eingegebene Benutzername exisitiert schon.";
+                  $view->display ();
+              } elseif ($userRepository->userAlreadyExistsByEmail ( $email )) {
+                  $view = new View ( 'login_registration' );
+                  $view->title = 'Register';
+                  $view->heading = 'Register';
+                  $view->message = "Die eingebene E-Mail Adresse existiert schon";
+                  $view->display ();
+              } else {
+
+                  $user_id = $userRepository->create($username, $passwort, $email);
                   session_start();
                   $_SESSION ['besucht'] = true;
                   $_SESSION ['user_id'] = $user_id;
 
-                  header ( "Location: " . $GLOBALS['appurl'] . "/login" );
-
+                  header("Location: " . $GLOBALS['appurl'] . "/login");
+              }
           } else {
-              $view = new View ( 'login_index' );
+              $view = new View ( 'login_registration' );
               $view->title = 'Register';
               $view->heading = 'Register';
-              $view->message = "Pls check your inputs";
+              $view->message = 'Invalide Daten eingegeben.';
               $view->display ();
           }
       }

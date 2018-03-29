@@ -99,14 +99,21 @@ require_once '../repository/UserRepository.php';
                   $view = new View ( 'login_registration' );
                   $view->title = 'Register';
                   $view->heading = 'Register';
-                  $view->message = "Die eingebene E-Mail Adresse existiert schon";
+                  $view->message = "Die eingebene E-Mail Adresse existiert schon.";
+                  $view->display ();
+              }
+              elseif (!preg_match("\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}\"", $_POST['password'])){
+                  $view = new View ( 'login_registration' );
+                  $view->title = 'Register';
+                  $view->heading = 'Register';
+                  $view->message = "Das Passwort entspricht nicht den Anforderungen.";
                   $view->display ();
               }
               elseif ( $_POST ['passwordbestätigt'] != $_POST ['password']) {
                   $view = new View ( 'login_registration' );
                   $view->title = 'Register';
                   $view->heading = 'Register';
-                  $view->message = "Die Passwörter stimmen nicht überein";
+                  $view->message = "Die Passwörter stimmen nicht überein.";
                   $view->display ();
                   }
               else {
@@ -116,7 +123,7 @@ require_once '../repository/UserRepository.php';
                   $_SESSION ['besucht'] = true;
                   $_SESSION ['user_id'] = $user_id;
 
-                  header("Location: " . $GLOBALS['appurl'] . "/login");
+                  header("Location: " . $GLOBALS['appurl'] . "/gallery");
               }
           } else {
               $view = new View ( 'login_registration' );

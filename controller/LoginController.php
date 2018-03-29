@@ -73,5 +73,33 @@ require_once '../repository/UserRepository.php';
               die();
           }
       }
+
+      /**
+       * überprüft ob der User schon existiert, wenn ja was schon existiert. Sonst erstellt es einen User
+       */
+      public function createUser() {
+          if (isset ( $_POST ['username'] ) && filter_var ( $_POST ['email'], FILTER_VALIDATE_EMAIL ) && isset ( $_POST ['password'] )) {
+
+              $username = $_POST ['username'];
+              $email = $_POST ['email'];
+              $passwort = $_POST ['password'];
+
+              $userRepository = new UserRepository();
+
+                  $user_id = $userRepository->create ( $username, $passwort, $email );
+                  session_start();
+                  $_SESSION ['besucht'] = true;
+                  $_SESSION ['user_id'] = $user_id;
+
+                  header ( "Location: " . $GLOBALS['appurl'] . "/login" );
+
+          } else {
+              $view = new View ( 'login_index' );
+              $view->title = 'Register';
+              $view->heading = 'Register';
+              $view->message = "Pls check your inputs";
+              $view->display ();
+          }
+      }
 }
 ?>

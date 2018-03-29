@@ -38,18 +38,16 @@ require_once '../repository/UserRepository.php';
 
               // Vergleicht alle Datensätze mit der Eingabe
               foreach($userRepository->readAll() as $user){
-                  if($user->email == $email){
-                      if($user->passwort == $passwort){
+                  if ($user->email == $email) {
+                      if ($user->passwort == $passwort) {
                           session_start();
                           $_SESSION['user_id'] = $user->kid;
                           $_SESSION['besucht'] = true;
                           $error = false;
-                      }
-                      else{
+                      } else {
                           $error = true;
                       }
-                  }
-                  else{
+                  } else {
                       $error = true;
                   }
               }
@@ -57,7 +55,6 @@ require_once '../repository/UserRepository.php';
           else {
               $error = true;
           }
-
 
           // Falls der Login fehl schlägt, Weiterleitung zur Login-Seite
           if($error){
@@ -69,7 +66,7 @@ require_once '../repository/UserRepository.php';
           }
           // Falls Login korrekt, Weiterleitung zum Feed
           else{
-              header("Location: " .$GLOBALS['appurl']);
+              header("Location: " .$GLOBALS['appurl'] .  "/gallery" );
               die();
           }
       }

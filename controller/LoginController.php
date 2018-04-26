@@ -33,8 +33,8 @@ require_once '../repository/UserRepository.php';
           $error = false;
           $userRepository = new UserRepository();
           if(isset($_POST['email']) && isset($_POST['passwort'])){
-              $email = htmlspecialchars($_POST['email']);
-              $passwort = htmlspecialchars(sha1($_POST['passwort']));
+              $email = $_POST['email'];
+              $passwort = sha1($_POST['passwort']);
 
               // Vergleicht alle Datensätze mit der Eingabe
               foreach($userRepository->readAll() as $user){

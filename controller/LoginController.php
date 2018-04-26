@@ -66,7 +66,7 @@ require_once '../repository/UserRepository.php';
           }
           // Falls Login korrekt, Weiterleitung zur Galerie
           else{
-              header("Location: " .$GLOBALS['appurl'] .  "/picture" );
+              header("Location: " .$GLOBALS['appurl'] .  "/gallery" );
               die();
           }
       }

@@ -64,7 +64,7 @@ require_once '../repository/UserRepository.php';
               $view->error = $error;
               $view->display();
           }
-          // Falls Login korrekt, Weiterleitung zum Feed
+          // Falls Login korrekt, Weiterleitung zur Galerie
           else{
               header("Location: " .$GLOBALS['appurl'] .  "/gallery" );
               die();
@@ -117,7 +117,6 @@ require_once '../repository/UserRepository.php';
                   $view->display ();
                   }
               else {
-
                   $user_id = $userRepository->create($username, $passwort, $email);
                   session_start();
                   $_SESSION ['besucht'] = true;

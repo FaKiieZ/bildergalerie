@@ -33,8 +33,8 @@ require_once '../repository/UserRepository.php';
           $error = false;
           $userRepository = new UserRepository();
           if(isset($_POST['email']) && isset($_POST['passwort'])){
-              $email = htmlspecialchars($_POST['email']);
-              $passwort = htmlspecialchars(sha1($_POST['passwort']));
+              $email = $_POST['email'];
+              $passwort = sha1($_POST['passwort']);
 
               // Vergleicht alle Datensätze mit der Eingabe
               foreach($userRepository->readAll() as $user){
@@ -64,9 +64,9 @@ require_once '../repository/UserRepository.php';
               $view->error = $error;
               $view->display();
           }
-          // Falls Login korrekt, Weiterleitung zum Feed
+          // Falls Login korrekt, Weiterleitung zur Galerie
           else{
-              header("Location: " .$GLOBALS['appurl'] .  "/gallery" );
+              header("Location: " .$GLOBALS['appurl'] .  "/picture" );
               die();
           }
       }
@@ -117,7 +117,6 @@ require_once '../repository/UserRepository.php';
                   $view->display ();
                   }
               else {
-
                   $user_id = $userRepository->create($username, $passwort, $email);
                   session_start();
                   $_SESSION ['besucht'] = true;

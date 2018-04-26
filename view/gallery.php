@@ -1,1 +1,1 @@
-<img src="http://s3.amazonaws.com/hiphopdx-production/2017/12/Tekashi1-827x620.jpg">
+<a class="btn btn-default" href="<?php echo $GLOBALS['appurl']?>/gallery/createGallery" > Erstelle Galerie </a>

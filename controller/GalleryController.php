@@ -20,16 +20,13 @@ class GalleryController
     }
 
     public function doCreate(){
-        if(isset($_POST['galleryName']) && isset($_POST['publiziert'])) {
+        if(isset($_POST['galleryName'])) {
             $gname = $_POST['galleryName'];
             $publiziert = $_POST['publiziert'];
-
-            $galleryRepository = new GalleryRepository();
             session_start();
-            $galleryRepository->create($_SESSION['user_id'], $gname, $publiziert);
-            $view = new View ( 'gallery' );
-            $view->title = 'Galerie';
-            $view->heading = 'Galerie';
+            $galleryRepository = new GalleryRepository();
+            $galleryRepository->create($_SESSION['user_id'], $gname, (isset($publiziert)) ? $publiziert : FALSE);
+            $this->index();
         }else{
             die("spitu");
         }

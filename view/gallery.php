@@ -1,8 +1,12 @@
-<a class="btn btn-default" href="<?php echo $GLOBALS['appurl']?>/gallery/createGallery" > Erstelle Galerie </a>
 <?php
+if (isset($data) && count($data) > 0){
     foreach ($data as $gallery) {
-        echo "<div>";
-        echo $gallery->name;
-        echo "<div>";
+        echo '<div class="col-md-4">';
+        echo "<a href='#'><h5>$gallery->name</h5></a>";
+        echo "</div>";
     }
+}else{
+    echo "<h5>Keine Einträge vorhanden.</h5>";
+}
 ?>
+<br>

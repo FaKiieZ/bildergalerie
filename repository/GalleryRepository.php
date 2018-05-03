@@ -6,12 +6,12 @@ require_once '../lib/Repository.php';
 
         protected $tableName = 'galerie';
 
-        public function create($kid, $gname ){
+        public function create($kid, $gname, $published ){
 
-            $query = "INSERT INTO $this->tableName (kid, gname, published) VALUES (?, ?, FALSE)";
+            $query = "INSERT INTO $this->tableName (kid, beschreibung, published) VALUES (?, ?, ?)";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('isi', $kid, $gname);
+            $statement->bind_param('iss', $kid, $gname, $published);
 
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);

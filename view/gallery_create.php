@@ -7,6 +7,10 @@
     echo $form->input()->label('Name der Galerie')->name('galleryName')->type('text')->lblClass($lblClass)->eltClass($eltClass);
     echo $button->start($lblClass, $eltClass);
     echo $button->label('Erstellen')->name('send')->type('submit')->class('btn-default');
+    ?>
+
+
+<?php
     echo $button->end();
     echo $form->end();
     echo "<br>";

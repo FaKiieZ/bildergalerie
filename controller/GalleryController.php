@@ -4,9 +4,11 @@ require_once '../repository/GalleryRepository.php';
 class GalleryController
 {
     public function index(){
+        $galleryRepository = new GalleryRepository();
         $view = new View('gallery');
         $view->title = 'Galerie';
         $view->heading = 'Galerie';
+        $view->data = $galleryRepository->readAll();
         $view->display();
     }
 

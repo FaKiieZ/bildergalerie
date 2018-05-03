@@ -3,15 +3,14 @@ require_once '../lib/Repository.php';
 
     class GalleryRepository extends Repository
     {
-
         protected $tableName = 'galerie';
 
-        public function create($kid, $gname, $published ){
+        public function create($kid, $gname, $publiziert){
 
-            $query = "INSERT INTO $this->tableName (kid, beschreibung, published) VALUES (?, ?, ?)";
+            $query = "INSERT INTO $this->tableName (kid, name, publiziert) VALUES (?, ?, ?)";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('iss', $kid, $gname, $published);
+            $statement->bind_param('isb', $kid, $gname, $publiziert);
 
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);

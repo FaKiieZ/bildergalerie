@@ -17,5 +17,9 @@ if($_SESSION['besucht'] != true){
     <input type="hidden" name="MAX_FILE_SIZE" value="10000000" class="btn btn-default"/>
     <!-- Der Name des Input Felds bestimmt den Namen im $_FILES Array -->
     <input name="userfile" type="file" accept="image/*" class="btn btn-default" /><br>
+<?php
+    $form = new Form($GLOBALS['appurl']."/picture/upload");
+    echo $form->dropdown()->name("galerie")->label("Galerie");
+?>
     <input type="submit" value="Bild hochladen" class="btn btn-default"/>
 </form>

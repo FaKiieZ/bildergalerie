@@ -8,6 +8,10 @@
     echo $form->checkbox()->name('publiziert')->value("Publiziert");
     echo $button->start($lblClass, $eltClass);
     echo $button->label('Erstellen')->name('send')->type('submit')->class('btn-default');
+    ?>
+
+
+<?php
     echo $button->end();
     echo $form->end();
     echo "<br>";

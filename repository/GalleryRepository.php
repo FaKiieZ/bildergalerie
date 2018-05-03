@@ -3,7 +3,6 @@ require_once '../lib/Repository.php';
 
     class GalleryRepository extends Repository
     {
-
         protected $tableName = 'galerie';
 
         public function create($kid, $gname, $publiziert){

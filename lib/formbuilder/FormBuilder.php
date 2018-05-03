@@ -6,3 +6,4 @@ require_once 'InputBuilder.php';
 require_once 'TextareaBuilder.php';
 require_once 'SelectBuilder.php';
 require_once 'ButtonBuilder.php';
+require_once 'CheckboxBuilder.php';

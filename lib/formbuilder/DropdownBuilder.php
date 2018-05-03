@@ -20,7 +20,7 @@ class DropdownBuilder extends Builder
 
         $result = "<div class='form-group'>\n";
         $result .= "<label class='col-md-2 control-label'>{$this->label}</label>\n";
-        $result .= "<select name='test'>\n";
+        $result .= "<select name='gallery'>\n";
         foreach ($data as $gallery) {
             $result .= "<option value='$gallery->gid'>$gallery->name</option>\n";
         }

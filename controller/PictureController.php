@@ -34,7 +34,7 @@ class PictureController
         $pictureRepository = new PictureRepository();
 		
 		if (!$error){
-			$pictureRepository->doUpload(htmlspecialchars($filename), $_SESSION['user_id'], );
+			$pictureRepository->doUpload(htmlspecialchars($filename), $_SESSION['user_id'], 1 );
 		}
 		
 		$view = new View('picture_upload');

@@ -19,7 +19,7 @@ class PictureController
     	$uploaddir = "../public/var/www/uploads/";
 		$uploadfile = $uploaddir . addslashes(time()) . basename($_FILES['userfile']['name']);
 		$filename = addslashes(time()) . basename($_FILES['userfile']['name']);
-		if(strlen($filename) > 60){
+		if(strlen($filename) > 60 || isset($_POST["gallery"])){
 			$error = true;
 		}
 		else{
@@ -34,7 +34,7 @@ class PictureController
         $pictureRepository = new PictureRepository();
 		
 		if (!$error){
-			$pictureRepository->doUpload(htmlspecialchars($filename), $_SESSION['user_id'], 1 );
+			$pictureRepository->doUpload(htmlspecialchars($filename), $_SESSION['user_id'], $_POST["gallery"]);
 		}
 		
 		$view = new View('picture_upload');

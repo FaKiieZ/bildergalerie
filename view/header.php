@@ -27,7 +27,6 @@
           <ul class="nav navbar-nav">
 			<!-- fix schf -->
             <?php
-                session_start();
                 if(isset($_SESSION['besucht']) && $_SESSION['besucht'] == true){
             ?>
                     <li><a href="<?=$GLOBALS['appurl']?>/logout">Logout</a></li>

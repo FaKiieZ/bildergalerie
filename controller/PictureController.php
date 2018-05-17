@@ -19,7 +19,7 @@ class PictureController
     	$uploaddir = "../public/var/www/uploads/";
 		$uploadfile = $uploaddir . addslashes(time()) . basename($_FILES['userfile']['name']);
 		$filename = addslashes(time()) . basename($_FILES['userfile']['name']);
-		if(strlen($filename) > 60 || isset($_POST["gallery"])){
+		if(strlen($filename) > 60 || !isset($_POST["gallery"])){
 			$error = true;
 		}
 		else{

@@ -1,5 +1,6 @@
 <?php
 require_once '../repository/GalleryRepository.php';
+require_once '../repository/PictureRepository.php';
 
 class GalleryController
 {
@@ -30,5 +31,15 @@ class GalleryController
         }else{
             die("spitu");
         }
+    }
+
+    public function showById(){
+        $gid = $_GET['gid'];
+        $pictureRepository = new PictureRepository();
+        $view = new View('gallery_view');
+        $view->title = 'Galerie';
+        $view->heading = 'Galerie';
+        $view->data = $pictureRepository->readAllByGalleryId($gid, $_SESSION['user_id']);
+        $view->display();
     }
 }

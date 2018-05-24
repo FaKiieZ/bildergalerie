@@ -1,5 +1,5 @@
-      <hr>
       <footer>
+        <hr>
         <p>&copy; Copyright Remo & Jan</p>
       </footer>
     </div>

@@ -12,11 +12,17 @@ echo $form->end();
 
 echo '<div style="width: 100%; max-width: 90%;">';
 if (isset($data) && count($data) > 0){
-    echo '<div style="max-width: 90%;">';
     foreach ($data as $picture) {
+<<<<<<< HEAD
         echo '<a class="thumbnail col-md-4" data-lightbox="eis" style="object-fit: cover; width:230px; height:230px;" href="../var/www/uploads/' . $picture->name . '" />';
     }
     echo "</div>";
+=======
+        echo '<div class="col-md-4">';
+        echo '<img class="thumbnail" style="object-fit: cover; width:230px; height:230px;" src="../var/www/uploads/' . $picture->name . '" />';
+        echo '</div>';
+    }
+>>>>>>> 3cb3f49baf0774b13844a8c10585342a2291027b
 }else{
     echo "<h5>Keine Einträge vorhanden.</h5>";
 }

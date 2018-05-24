@@ -39,4 +39,21 @@ class PictureRepository extends Repository
 
         return $rows;
     }
+
+    public function readFirstPictureOfGallery($gid){
+        $query = "SELECT * FROM $this->tableName WHERE gid = ? LIMIT 1";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $gid);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        $picture = $result->fetch_object();
+
+        return $picture;
+    }
 }

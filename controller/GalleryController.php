@@ -9,7 +9,7 @@ class GalleryController
         $view = new View('gallery');
         $view->title = 'Galerie';
         $view->heading = 'Galerie';
-        $view->data = $galleryRepository->readAll();
+        $view->data = $galleryRepository->readAllWithFirstPicture();
         $view->display();
     }
 
@@ -61,9 +61,11 @@ class GalleryController
     public function showById(){
         $gid = $_GET['gid'];
         $pictureRepository = new PictureRepository();
+        $galleryRepository = new GalleryRepository();
+        $gallery = $galleryRepository->readById($gid);
         $view = new View('gallery_view');
-        $view->title = 'Galerie';
-        $view->heading = 'Galerie';
+        $view->title = $gallery->name . ': Galerie';
+        $view->heading = $gallery->name . ': Galerie';
         $view->data = $pictureRepository->readAllByGalleryId($gid, $_SESSION['user_id']);
         $view->display();
     }

@@ -24,13 +24,38 @@ class GalleryController
         if(isset($_POST['galleryName'])) {
             $gname = $_POST['galleryName'];
             $publiziert = $_POST['publiziert'];
-            session_start();
             $galleryRepository = new GalleryRepository();
             $galleryRepository->create($_SESSION['user_id'], $gname, (isset($publiziert)) ? $publiziert : FALSE);
             $this->index();
-        }else{
-            die("spitu");
         }
+    }
+
+    public function deleteGallery(){
+        if(isset($_GET['gid']) && isset($_SESSION['user_id'])) {
+            $gid = $_GET['gid'];
+            $kid = $_SESSION['user_id'];
+            $galleryRepository = new GalleryRepository();
+            $pictureRepository = new PictureRepository();
+            $pictures = $pictureRepository->readAllByGalleryId($gid, $kid);
+            if ($pictures == NULL) {
+                $galleryRepository->deleteByIdAndKid($gid, $kid);
+                $view = new View('gallery');
+                $view->title = 'Galerie';
+                $view->heading = 'Galerie';
+                $view->data = $galleryRepository->readAll();
+                $view->display();
+            }
+
+            else {
+                $view = new View('gallery');
+                $view->title = 'Galerie';
+                $view->heading = 'Galerie';
+                $view->data = $galleryRepository->readAll();
+                $view->message = "Alle Bilder müssen vor dem Löschen der Galerie entfernt werden.";
+                $view->display();
+            }
+        }
+
     }
 
     public function showById(){

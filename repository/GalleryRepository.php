@@ -19,5 +19,19 @@ require_once '../lib/Repository.php';
             return $statement->insert_id;
         }
 
+        public function deleteByIdAndKid($gid, $kid){
+
+            $query = "DELETE FROM $this->tableName WHERE (gid, kid) = (?,?)";
+
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('ii', $gid, $kid);
+
+            if (!$statement->execute()) {
+                throw new Exception ($statement->error);
+            }
+        }
+
+
+
     }
 ?>

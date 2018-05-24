@@ -9,6 +9,8 @@
     <!-- Custom styles for this template -->
     <link href="<?=$GLOBALS['appurl']?>/css/style.css" rel="stylesheet">
 	<script src="<?=$GLOBALS['appurl']?>/js/jscript.js"></script>
+      <link href="<?=$GLOBALS['appurl']?>/css/lightbox.css" rel="stylesheet">
+      <script src="<?=$GLOBALS['appurl']?>/js/lightbox-plus-jquery.js"></script>
     <title><?= $title ?></title>
   </head>
   <body>
@@ -46,4 +48,4 @@
       </div>
     </nav>
     <div class="container">
-    <h3><?= $heading ?></h3>
+    <h3><?= $heading ?> </h3>

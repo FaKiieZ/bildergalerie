@@ -5,6 +5,7 @@ require_once 'PictureRepository.php';
     class GalleryRepository extends Repository
     {
         protected $tableName = 'galerie';
+        protected $tableId = 'gid';
 
         public function create($kid, $gname, $publiziert){
 

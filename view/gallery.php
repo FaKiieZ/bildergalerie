@@ -1,4 +1,11 @@
 <?php
+
+if (isset($message)) {
+    echo "<div class='alert alert-danger'>";
+    echo "<strong>Achtung!</strong> $message";
+    echo "</div>";
+}
+
 if (isset($data) && count($data) > 0){
     foreach ($data as $gallery) {
         echo "<a href='" . $GLOBALS['appurl'] . "/gallery/showById?gid=$gallery->gid'>";

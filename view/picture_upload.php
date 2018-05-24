@@ -19,7 +19,7 @@ if($_SESSION['besucht'] != true){
     <input name="userfile" type="file" accept="image/*" class="btn btn-default" /><br>
 <?php
     $form = new Form($GLOBALS['appurl']."/picture/upload");
-    echo $form->dropdown()->name("galerie")->label("Galerie");
+    echo $form->dropdown()->name("galerie")->label("Galerie: ");
 ?>
     <input type="submit" value="Bild hochladen" class="btn btn-default"/>
 </form>

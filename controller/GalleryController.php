@@ -64,8 +64,8 @@ class GalleryController
         $galleryRepository = new GalleryRepository();
         $gallery = $galleryRepository->readById($gid);
         $view = new View('gallery_view');
-        $view->title = $gallery->name . ': Galerie';
-        $view->heading = $gallery->name . ': Galerie';
+        $view->title = 'Galerie (' . $gallery->name . ')';
+        $view->heading = 'Galerie (' . $gallery->name . ')';
         $view->data = $pictureRepository->readAllByGalleryId($gid, $_SESSION['user_id']);
         $view->display();
     }

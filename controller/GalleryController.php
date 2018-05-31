@@ -23,7 +23,8 @@ class GalleryController
     public function doCreate(){
         if(isset($_POST['galleryName'])) {
             $gname = $_POST['galleryName'];
-            $publiziert = $_POST['publiziert'];
+            $publiziert = isset($_POST['publiziert']) ? $_POST['publiziert'] : false;
+
             $galleryRepository = new GalleryRepository();
             $galleryRepository->create($_SESSION['user_id'], $gname, (isset($publiziert)) ? $publiziert : FALSE);
             $this->index();

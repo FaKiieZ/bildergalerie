@@ -66,7 +66,7 @@ require_once '../repository/UserRepository.php';
           }
           // Falls Login korrekt, Weiterleitung zur Galerie
           else{
-              header("Location: " .$GLOBALS['appurl'] .  "/gallery" );
+              header("Location: " .$GLOBALS['appurl'] .  "/gallery/" );
               die();
           }
       }
@@ -122,7 +122,7 @@ require_once '../repository/UserRepository.php';
                   $_SESSION ['besucht'] = true;
                   $_SESSION ['user_id'] = $user_id;
 
-                  header("Location: " . $GLOBALS['appurl'] . "/gallery");
+                  header("Location: " . $GLOBALS['appurl'] . "/gallery/");
               }
           } else {
               $view = new View ( 'login_registration' );

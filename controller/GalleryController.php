@@ -70,4 +70,14 @@ class GalleryController
         $view->data = $pictureRepository->readAllByGalleryId($gid, $_SESSION['user_id']);
         $view->display();
     }
+
+    public function doRead(){
+        $gid = $_GET['gid'];
+        $galleryRepository = new GalleryRepository();
+        $gallery = $galleryRepository->readNameAndPubliziertByGidAndKid($gid, $_SESSION['user_id']);
+        $view = new View('gallery_edit');
+        $view->title = 'Galerie';
+        $view->heading = 'Galerie';
+        $view->display();
+    }
 }

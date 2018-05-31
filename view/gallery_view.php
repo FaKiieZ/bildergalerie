@@ -6,9 +6,9 @@ echo '<a class="btn btn-danger" href="' . $GLOBALS["appurl"] . '/gallery/editGal
 echo '<div style="width: 100%; max-width: 90%;">';
 if (isset($data) && count($data) > 0){
     foreach ($data as $picture) {
-        echo '<a class="thumbnail col-md-4" data-lightbox="eis" href="../var/www/uploads/' . $picture->name . '" >';
+        echo '<a class="col-md-4" data-lightbox="eis" href="../var/www/uploads/' . $picture->name . '" >';
         echo '<div class="col-md-4">';
-        echo '<img class="thumbnail" style="object-fit: cover; width:230px; height:230px;" src="../var/www/uploads/' . $picture->name . '" />';
+        echo '<img class="thumbnail" src="../var/www/uploads/' . $picture->name . '" />';
         echo '</div></a>';
     }
 }else{

@@ -12,9 +12,9 @@ if (isset($data) && count($data) > 0){
         echo '<div class="col-md-4 gallery">';
 
         if (isset($gallery->firstPictureName)) {
-            echo '<img class="thumbnail" src="var/www/uploads/' . $gallery->firstPictureName . '" />';
+            echo '<img class="thumbnail" src="../var/www/uploads/' . $gallery->firstPictureName . '" />';
         }else{
-            echo '<img class="thumbnail" src="var/www/default/gallery.jpg" />';
+            echo '<img class="thumbnail" src="../var/www/default/gallery.jpg" />';
         }
 
         echo "<h5 style='text-align: center'>$gallery->name</h5>";

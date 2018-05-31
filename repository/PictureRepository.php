@@ -5,6 +5,7 @@ require_once '../lib/Repository.php';
 class PictureRepository extends Repository
 {
     protected $tableName = 'bild';
+    protected $tableId = 'bid';
 
     // Foto hochladen
     public function doUpload($pictureName, $userId, $galleryId)

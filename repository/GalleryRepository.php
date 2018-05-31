@@ -21,6 +21,26 @@ require_once 'PictureRepository.php';
             return $statement->insert_id;
         }
 
+        public function readNameAndPubliziertByGidAndKid($kid, $gid){
+
+            $query = "SELECT name, publiziert FROM $this->tableName WHERE gid = ? AND kid = ?";
+
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('ii', $kid, $gid);
+
+            $result = $statement->get_result();
+            if (!$result){
+                throw new Exception($statement->error);
+            }
+
+            $rows = array();
+            while ($row = $result->fetch_object()) {
+                $rows[] = $row;
+            }
+
+            return $rows;
+        }
+
         public function readAllWithFirstPicture()
         {
             $query = "SELECT * FROM $this->tableName";

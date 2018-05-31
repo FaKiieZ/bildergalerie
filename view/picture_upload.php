@@ -14,7 +14,7 @@ if($_SESSION['besucht'] != true){
 ?>
 <form enctype="multipart/form-data" action="<?php echo $GLOBALS['appurl']?>/picture/upload" method="POST">
     <!-- MAX_FILE_SIZE muss vor dem Dateiupload Input Feld stehen -->
-    <input type="hidden" name="MAX_FILE_SIZE" value="10000000" class="btn btn-default"/>
+    <input type="hidden" name="MAX_FILE_SIZE" value="4000000" class="btn btn-default"/>
     <!-- Der Name des Input Felds bestimmt den Namen im $_FILES Array -->
     <input name="userfile" type="file" accept="image/*" class="btn btn-default" /><br>
 <?php

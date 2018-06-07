@@ -21,24 +21,36 @@ require_once 'PictureRepository.php';
             return $statement->insert_id;
         }
 
-        public function readNameAndPubliziertByGidAndKid($kid, $gid){
+        public function updateGallery($kid, $gid, $gname, $publiziert){
 
-            $query = "SELECT name, publiziert FROM $this->tableName WHERE gid = ? AND kid = ?";
+            $query = "UPDATE $this->tableName SET $gname, $publiziert WHERE gid = ? and kid = ?";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('ii', $kid, $gid);
+            $statement->bind_param('iisb', $gid, $kid, $gname, $publiziert);
+
+            if (!$statement->execute()) {
+                throw new Exception ($statement->error);
+            }
+
+            return $statement->insert_id;
+        }
+
+        public function readByIdAndKid($kid, $gid){
+
+            $query = "SELECT * FROM $this->tableName WHERE gid = ? AND kid = ?";
+
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('ii', $gid, $kid);
+            $statement->execute();
 
             $result = $statement->get_result();
-            if (!$result){
+            if (!$result) {
                 throw new Exception($statement->error);
             }
 
-            $rows = array();
-            while ($row = $result->fetch_object()) {
-                $rows[] = $row;
-            }
+            $row = $result->fetch_object();
 
-            return $rows;
+            return $row;
         }
 
         public function readAllWithFirstPicture()

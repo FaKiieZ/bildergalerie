@@ -9,7 +9,7 @@ if (isset($data) && count($data) > 0){
         echo '<div class="col-md-4">';
         echo '<a class="col-md-4" data-lightbox="eis" href="../var/www/uploads/' . $picture->name . '" >';
         echo '<img class="thumbnail" src="../var/www/uploads/' . $picture->name . '" />';
-        echo "<a style='position: absolute; bottom: 0' class='btn btn-danger' href='" . $GLOBALS['appurl'] . "/picture/delete?bid=" . $picture->bid . "&gid=" . $gid . "'>Löschen</a>";
+        echo "<a class='btn btn-danger pictureDeleteButton' href='" . $GLOBALS['appurl'] . "/picture/delete?bid=" . $picture->bid . "&gid=" . $gid . "'><i class='glyphicon glyphicon-trash'></i></a>";
         echo '</a></div>';
     }
 }else{

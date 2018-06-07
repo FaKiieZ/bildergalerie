@@ -2,12 +2,6 @@ body {
   padding-top: 50px;
 }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 60%;
-}
-
 .gallery {
   border: 1px black solid;
   padding-top: 5px;
@@ -23,4 +17,13 @@ footer {
     object-fit: cover;
     height: 230px;
     width: 230px;
+}
+
+.pictureDeleteButton {
+    margin-top: 255px;
+    margin-left: -75px;
+}
+
+.content {
+    margin-bottom: 20px;
 }

@@ -31,6 +31,22 @@ class GalleryController
         }
     }
 
+    public function doSave(){
+        if(isset($_GET['gid']) && isset($_SESSION['user_id']) && isset($_POST['galleryName'])){
+            $gid = $_GET['gid'];
+            $kid = $_SESSION['user_id'];
+            $gname = $_POST['galleryName'];
+            $publiziert = isset($_POST['publiziert']) ? $_POST['publiziert'] : false;
+            $galleryRepository = new GalleryRepository();
+            $galleryRepository->updateGallery($kid, $gid, $gname, (isset($publiziert)) ? $publiziert : FALSE);
+            $view = new View('gallery');
+            $view->title = 'Galerie';
+            $view->heading = 'Galerie';
+            $view->data = $galleryRepository->readAllByGalleryId($gid, $kid);
+            $view->display();
+        }
+    }
+
     public function deleteGallery(){
         if(isset($_GET['gid']) && isset($_SESSION['user_id'])) {
             $gid = $_GET['gid'];
@@ -56,7 +72,6 @@ class GalleryController
                 $view->display();
             }
         }
-
     }
 
     public function showById(){
@@ -71,11 +86,11 @@ class GalleryController
         $view->display();
     }
 
-    public function doRead(){
+    public function editGallery(){
         $gid = $_GET['gid'];
         $galleryRepository = new GalleryRepository();
-        $gallery = $galleryRepository->readNameAndPubliziertByGidAndKid($gid, $_SESSION['user_id']);
         $view = new View('gallery_edit');
+        $view->data = $galleryRepository->readByIdAndKid($gid, $_SESSION['user_id']);
         $view->title = 'Galerie';
         $view->heading = 'Galerie';
         $view->display();

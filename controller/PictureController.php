@@ -1,6 +1,6 @@
 <?php
 
-require_once('../repository/PictureRepository.php');
+require_once '../repository/PictureRepository.php';
 
 class PictureController
 {
@@ -43,4 +43,20 @@ class PictureController
 		$view->error = $error;
     	$view->display();
 	}
+
+	public function delete(){
+        if (isset($_GET['bid'])){
+            $bid = $_GET['bid'];
+            $pictureRepository = new PictureRepository();
+            $pictureRepository->deleteById($bid);
+            $error = false;
+        } else{
+            $error = true;
+        }
+
+        $gid = $_GET['gid'];
+
+        header("Location: " . $GLOBALS['appurl'] . "/gallery/showById?gid=$gid");
+        die();
+    }
 }

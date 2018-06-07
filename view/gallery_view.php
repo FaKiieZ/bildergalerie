@@ -6,10 +6,11 @@ echo '<a class="btn btn-danger" href="' . $GLOBALS["appurl"] . '/gallery/editGal
 echo '<div style="width: 100%; max-width: 90%;">';
 if (isset($data) && count($data) > 0){
     foreach ($data as $picture) {
-        echo '<a class="col-md-4" data-lightbox="eis" href="../var/www/uploads/' . $picture->name . '" >';
         echo '<div class="col-md-4">';
+        echo '<a class="col-md-4" data-lightbox="eis" href="../var/www/uploads/' . $picture->name . '" >';
         echo '<img class="thumbnail" src="../var/www/uploads/' . $picture->name . '" />';
-        echo '</div></a>';
+        echo "<a class='btn btn-danger pictureDeleteButton' href='" . $GLOBALS['appurl'] . "/picture/delete?bid=" . $picture->bid . "&gid=" . $gid . "'><i class='glyphicon glyphicon-trash'></i></a>";
+        echo '</a></div>';
     }
 }else{
     echo "<h5>Keine Einträge vorhanden.</h5>";

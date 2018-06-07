@@ -47,5 +47,5 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-    <div class="container">
+    <div class="container content">
     <h3><?= $heading ?> </h3>

@@ -5,4 +5,4 @@ ALTER TABLE Kunde ADD UNIQUE (`email`);
 ALTER TABLE Kunde ADD UNIQUE (`benutzername`);
 CREATE TABLE Galerie (gid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, kid int NOT NULL, name varchar(50) not null, publiziert bit not null, FOREIGN KEY (kid) REFERENCES Kunde(kid));
 CREATE TABLE Bild (bid INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name varchar(64) NOT NULL, kid int not null, gid int not null, FOREIGN KEY (kid) REFERENCES Kunde(kid), FOREIGN KEY (gid) REFERENCES Galerie(gid));
-ALTER TABLE `galerie` CHANGE `publiziert` `publiziert` BIT(1) NOT NULL DEFAULT b'0';
+ALTER TABLE `galerie` CHANGE `publiziert` `publiziert` BOOLEAN NOT NULL DEFAULT FALSE;

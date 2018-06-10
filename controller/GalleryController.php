@@ -4,12 +4,13 @@ require_once '../repository/PictureRepository.php';
 
 class GalleryController
 {
-    public function index(){
+    public function index($message = null){
         $galleryRepository = new GalleryRepository();
         $view = new View('gallery');
         $view->title = 'Galerie';
         $view->heading = 'Galerie';
-        $view->data = $galleryRepository->readAllWithFirstPicture();
+        $view->data = $galleryRepository->readAllWithFirstPictureByKid($_SESSION['user_id']);
+        $view->message = $message;
         $view->display();
     }
 
@@ -23,10 +24,14 @@ class GalleryController
     public function doCreate(){
         if(isset($_POST['galleryName'])) {
             $gname = $_POST['galleryName'];
-            $publiziert = isset($_POST['publiziert']) ? $_POST['publiziert'] : false;
+            $publiziert = 0;
+
+            if (isset($_POST['publiziert'])){
+                $publiziert = $_POST['publiziert'];
+            }
 
             $galleryRepository = new GalleryRepository();
-            $galleryRepository->create($_SESSION['user_id'], $gname, (isset($publiziert)) ? $publiziert : FALSE);
+            $galleryRepository->create($_SESSION['user_id'], $gname, $publiziert);
             $this->index();
         }
     }
@@ -36,14 +41,16 @@ class GalleryController
             $gid = $_GET['gid'];
             $kid = $_SESSION['user_id'];
             $gname = $_POST['galleryName'];
-            $publiziert = isset($_POST['publiziert']) ? $_POST['publiziert'] : false;
+            $publiziert = 0;
+
+            if (isset($_POST['publiziert'])){
+                $publiziert = $_POST['publiziert'];
+            }
+
             $galleryRepository = new GalleryRepository();
-            $galleryRepository->updateGallery($kid, $gid, $gname, (isset($publiziert)) ? $publiziert : FALSE);
-            $view = new View('gallery');
-            $view->title = 'Galerie';
-            $view->heading = 'Galerie';
-            $view->data = $galleryRepository->readAllByGalleryId($gid, $kid);
-            $view->display();
+            $galleryRepository->updateGallery($kid, $gid, $gname, $publiziert);
+            header("Location: " . $GLOBALS['appurl'] . "/gallery/showById?gid=$gid");
+            die();
         }
     }
 
@@ -54,22 +61,16 @@ class GalleryController
             $galleryRepository = new GalleryRepository();
             $pictureRepository = new PictureRepository();
             $pictures = $pictureRepository->readAllByGalleryId($gid, $kid);
+            $_GET['gid'] = null;
             if ($pictures == NULL) {
                 $galleryRepository->deleteByIdAndKid($gid, $kid);
-                $view = new View('gallery');
-                $view->title = 'Galerie';
-                $view->heading = 'Galerie';
-                $view->data = $galleryRepository->readAll();
-                $view->display();
+                $this->index();
+                die();
             }
 
             else {
-                $view = new View('gallery');
-                $view->title = 'Galerie';
-                $view->heading = 'Galerie';
-                $view->data = $galleryRepository->readAll();
-                $view->message = "Alle Bilder müssen vor dem Löschen der Galerie entfernt werden.";
-                $view->display();
+                $this->index("Alle Bilder müssen vor dem Löschen der Galerie entfernt werden.");
+                die();
             }
         }
     }
@@ -90,9 +91,9 @@ class GalleryController
         $gid = $_GET['gid'];
         $galleryRepository = new GalleryRepository();
         $view = new View('gallery_edit');
-        $view->data = $galleryRepository->readByIdAndKid($gid, $_SESSION['user_id']);
-        $view->title = 'Galerie';
-        $view->heading = 'Galerie';
+        $view->data = $galleryRepository->readByIdAndKid($_SESSION['user_id'], $gid);
+        $view->title = 'Galerie bearbeiten';
+        $view->heading = 'Galerie bearbeiten';
         $view->display();
     }
 }

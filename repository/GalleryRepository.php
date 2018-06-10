@@ -8,11 +8,11 @@ require_once 'PictureRepository.php';
         protected $tableId = 'gid';
 
         public function create($kid, $gname, $publiziert){
-
+            $isPublic = intval($publiziert);
             $query = "INSERT INTO $this->tableName (kid, name, publiziert) VALUES (?, ?, ?)";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('isb', $kid, $gname, $publiziert);
+            $statement->bind_param('isi', $kid, $gname, $isPublic);
 
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);
@@ -22,11 +22,11 @@ require_once 'PictureRepository.php';
         }
 
         public function updateGallery($kid, $gid, $gname, $publiziert){
-
-            $query = "UPDATE $this->tableName SET $gname, $publiziert WHERE gid = ? and kid = ?";
+            $isPublic = intval($publiziert);
+            $query = "UPDATE $this->tableName SET name = ?, publiziert = ? WHERE gid = ? and kid = ?";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('iisb', $gid, $kid, $gname, $publiziert);
+            $statement->bind_param('siii', $gname, $isPublic, $gid, $kid);
 
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);
@@ -53,11 +53,12 @@ require_once 'PictureRepository.php';
             return $row;
         }
 
-        public function readAllWithFirstPicture()
+        public function readAllWithFirstPictureByKid($kid)
         {
-            $query = "SELECT * FROM $this->tableName";
+            $query = "SELECT * FROM $this->tableName WHERE kid = ?";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('i', $kid);
             $statement->execute();
 
             $result = $statement->get_result();

@@ -9,7 +9,7 @@ class PictureRepository extends Repository
 
     // Foto hochladen
     public function doUpload($pictureName, $userId, $galleryId)
-    {    	
+    {
         $query = "INSERT INTO $this->tableName (name, kid, gid) VALUES (?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);

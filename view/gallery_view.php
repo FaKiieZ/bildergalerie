@@ -1,7 +1,9 @@
 <?php
 $gid = $_GET['gid'];
+echo '<div class="btn-group">';
 echo '<a class="btn btn-danger" href="' . $GLOBALS["appurl"] . '/gallery/deleteGallery?gid=' . $gid . '">Galerie löschen</a>';
-echo '<a class="btn btn-danger" href="' . $GLOBALS["appurl"] . '/gallery/editGallery?gid=' . $gid . '">Galerie bearbeiten</a>';
+echo '<a class="btn btn-default" href="' . $GLOBALS["appurl"] . '/gallery/editGallery?gid=' . $gid . '">Galerie bearbeiten</a>';
+echo '</div>';
 
 echo '<div style="width: 100%; max-width: 90%;">';
 if (isset($data) && count($data) > 0){

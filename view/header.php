@@ -27,28 +27,30 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-			<!-- fix schf -->
             <?php
                 if(isset($_SESSION['besucht']) && $_SESSION['besucht'] == true){
             ?>
-                    <li><a href="<?=$GLOBALS['appurl']?>/logout">Logout</a></li>
                     <li><a href="<?=$GLOBALS['appurl']?>/gallery/showPublic">Publizierte Galerien anzeigen</a></li>
                     <li><a href="<?=$GLOBALS['appurl']?>/gallery/createGallery">Galerie erstellen</a></li>
-                    <li><a href="<?=$GLOBALS['appurl']?>/gallery/">Galerien anzeigen</a></li>
+                    <li><a href="<?=$GLOBALS['appurl']?>/gallery/">Meine Galerien anzeigen</a></li>
                     <?php
-                        if (isset($_GET['gid'])){
+                        if (isset($_GET['gid']) && !isset($_GET['notOwner'])){
                     ?>
                         <li><a href="<?=$GLOBALS['appurl']?>/picture?gid=<?=$_GET['gid']?>">Bild hochladen</a></li>
-            <?php
+                    <?php
                         }
+                    ?>
+                    <li><a href="<?=$GLOBALS['appurl']?>/account/">Mein Konto</a></li>
+                    <li><a href="<?=$GLOBALS['appurl']?>/logout/">Logout</a></li>
+            <?php
                 }else {
             ?>
-                    <li><a href="<?= $GLOBALS['appurl'] ?>/login">Login</a></li>
+                    <li><a href="<?= $GLOBALS['appurl'] ?>/login/">Login</a></li>
                     <li><a href="<?= $GLOBALS['appurl'] ?>/login/registration">Registration</a></li>
                 <?php
                 }?>
           </ul>
-        </div><!--/.nav-collapse -->
+        </div>
       </div>
     </nav>
     <div class="container content">

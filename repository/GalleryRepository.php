@@ -122,6 +122,29 @@ require_once 'UserRepository.php';
             return $rows;
         }
 
+        public function readWithUserById($gid){
+            $query = "SELECT * FROM $this->tableName WHERE publiziert = 1 AND gid = ?";
+
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('i', $gid);
+            $statement->execute();
+
+            $result = $statement->get_result();
+            if (!$result) {
+                throw new Exception($statement->error);
+            }
+
+            // Datensätze aus dem Resultat holen und in das Array $rows speichern
+            $row = $result->fetch_object();
+            if ($row != null){
+                $userRepository = new UserRepository();
+
+                $user = $userRepository->readById($row->kid);
+                $row->user = $user;
+            }
+            return $row;
+        }
+
         public function deleteAllByKid($kid){
             $query = "DELETE FROM $this->tableName WHERE kid = ?";
 

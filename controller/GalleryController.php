@@ -79,22 +79,29 @@ class GalleryController
         $gid = $_GET['gid'];
         $pictureRepository = new PictureRepository();
         $galleryRepository = new GalleryRepository();
-        $gallery = $galleryRepository->readById($gid);
+        $gallery = $galleryRepository->readWithUserById($gid);
         $isOwner = true;
-        if ($gallery->kid != $_SESSION['user_id']){
+        if ($gallery == null || $gallery->kid != $_SESSION['user_id']){
             $isOwner = false;
             $_GET['notOwner'] = true;
 
-            if ($gallery->publiziert == 0){
+            if ($gallery == null || $gallery->publiziert == 0){
                 $this->index("Dies dürfen Sie nicht tun!");
                 die();
             }
         }else {
             $_GET['notOwner'] = null;
         }
+
+        $userName = "";
+
+        if (!$isOwner){
+            $userName = " erstellt von " . $gallery->user->benutzername;
+        }
+
         $view = new View('gallery_view');
-        $view->title = 'Galerie (' . htmlspecialchars($gallery->name) . ')';
-        $view->heading = 'Galerie (' . htmlspecialchars($gallery->name) . ')';
+        $view->title = 'Galerie (' . htmlspecialchars($gallery->name) . $userName . ')';
+        $view->heading = 'Galerie (' . htmlspecialchars($gallery->name) . $userName . ')';
         $view->data = $pictureRepository->readAllByGalleryId($gid);
         $view->isOwner = $isOwner;
         $view->display();

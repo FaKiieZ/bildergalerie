@@ -121,5 +121,17 @@ require_once 'UserRepository.php';
             }
             return $rows;
         }
+
+        public function deleteAllByKid($kid){
+            $query = "DELETE FROM $this->tableName WHERE kid = ?";
+
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('i', $kid);
+
+            if (!$statement->execute()) {
+                die($statement->error);
+                throw new Exception($statement->error);
+            }
+        }
     }
 ?>

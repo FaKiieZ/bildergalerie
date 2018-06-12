@@ -1,5 +1,7 @@
 <?php
 require_once '../lib/Repository.php';
+require_once 'GalleryRepository.php';
+require_once 'PictureRepository.php';
 /**
  * Datenbankschnittstelle für die Benutzer
  */
@@ -109,6 +111,16 @@ require_once '../lib/Repository.php';
                   return $result->fetch_object ()->id;
               }
           }
+      }
+
+      public function deleteAllById($kid){
+          $pictureRepository = new PictureRepository();
+          $galleryRepository = new GalleryRepository();
+
+          $pictureRepository->deleteAllByKid($kid);
+          $galleryRepository->deleteAllByKid($kid);
+
+          $this->deleteById($kid);
       }
   }
 ?>

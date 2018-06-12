@@ -7,8 +7,8 @@ class GalleryController
     public function index($message = null){
         $galleryRepository = new GalleryRepository();
         $view = new View('gallery');
-        $view->title = 'Galerie';
-        $view->heading = 'Galerie';
+        $view->title = 'Meine Galerien';
+        $view->heading = 'Meine Galerien';
         $view->data = $galleryRepository->readAllWithFirstPictureByKid($_SESSION['user_id']);
         $view->message = $message;
         $view->display();
@@ -16,8 +16,8 @@ class GalleryController
 
     public function createGallery() {
         $view = new View('gallery_create');
-        $view->title = 'Bilderdatenbank';
-        $view->heading = 'Bilderdatenbank';
+        $view->title = 'Galerie erstellen';
+        $view->heading = 'Galerie erstellen';
         $view->display();
     }
 
@@ -83,11 +83,14 @@ class GalleryController
         $isOwner = true;
         if ($gallery->kid != $_SESSION['user_id']){
             $isOwner = false;
+            $_GET['notOwner'] = true;
 
             if ($gallery->publiziert == 0){
                 $this->index("Dies dürfen Sie nicht tun!");
                 die();
             }
+        }else {
+            $_GET['notOwner'] = null;
         }
         $view = new View('gallery_view');
         $view->title = 'Galerie (' . htmlspecialchars($gallery->name) . ')';

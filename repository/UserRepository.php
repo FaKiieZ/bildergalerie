@@ -122,5 +122,18 @@ require_once 'PictureRepository.php';
 
           $this->deleteById($kid);
       }
+
+      public function update($username, $password, $email, $kid){
+          $password = sha1($password); // hashed das Passwort
+
+          $query = "UPDATE $this->tableName SET benutzername = ?, passwort = ?, email = ? WHERE kid = ?";
+
+          $statement = ConnectionHandler::getConnection()->prepare($query);
+          $statement->bind_param('sssi', $username, $password, $email, $kid);
+
+          if (! $statement->execute()) {
+              throw new Exception ( $statement->error );
+          }
+      }
   }
 ?>

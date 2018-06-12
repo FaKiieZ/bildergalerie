@@ -20,11 +20,12 @@ require_once '../repository/UserRepository.php';
      * Zeigt das Registrations-Formular an
 	 * Dispatcher: /login/registration
      */
-    public function registration()
+    public function registration($message = null)
     {
       $view = new View('login_registration');
       $view->title = 'Bilder-DB';
       $view->heading = 'Registration';
+      $view->message = $message;
       $view->display();
     }
 
@@ -84,37 +85,17 @@ require_once '../repository/UserRepository.php';
               $userRepository = new UserRepository();
 
               if ($userRepository->userAlreadyExistsByName ( $username ) && $userRepository->userAlreadyExistsByEmail ( $email )) {
-                  $view = new View ( 'login_registration' );
-                  $view->title = 'Register';
-                  $view->heading = 'Register';
-                  $view->message = "Der eingegebene Benutzername und die E-Mail Adresse existiern schon.";
-                  $view->display ();
+                  $this->registration("Der eingegebene Benutzername und die E-Mail Adresse existiern schon.");
               } elseif ($userRepository->userAlreadyExistsByName ( $username )) {
-                  $view = new View ( 'login_registration' );
-                  $view->title = 'Register';
-                  $view->heading = 'Register';
-                  $view->message = "Der eingegebene Benutzername exisitiert schon.";
-                  $view->display ();
+                  $this->registration("Der eingegebene Benutzername exisitiert schon.");
               } elseif ($userRepository->userAlreadyExistsByEmail ( $email )) {
-                  $view = new View ( 'login_registration' );
-                  $view->title = 'Register';
-                  $view->heading = 'Register';
-                  $view->message = "Die eingebene E-Mail Adresse existiert schon.";
-                  $view->display ();
+                  $this->registration("Die eingebene E-Mail Adresse existiert schon.");
               }
               elseif (!preg_match("\"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}\"", $_POST['password'])){
-                  $view = new View ( 'login_registration' );
-                  $view->title = 'Register';
-                  $view->heading = 'Register';
-                  $view->message = "Das Passwort entspricht nicht den Anforderungen.";
-                  $view->display ();
+                  $this->registration("Das Passwort entspricht nicht den Anforderungen.");
               }
               elseif ( $_POST ['passwordbestätigt'] != $_POST ['password']) {
-                  $view = new View ( 'login_registration' );
-                  $view->title = 'Register';
-                  $view->heading = 'Register';
-                  $view->message = "Die Passwörter stimmen nicht überein.";
-                  $view->display ();
+                  $this->registration("Die Passwörter stimmen nicht überein.");
                   }
               else {
                   $user_id = $userRepository->create($username, $passwort, $email);
@@ -125,12 +106,7 @@ require_once '../repository/UserRepository.php';
                   header("Location: " . $GLOBALS['appurl'] . "/gallery/");
               }
           } else {
-              $view = new View ( 'login_registration' );
-              $view->title = 'Register';
-              $view->heading = 'Register';
-              $view->message = 'Invalide Daten eingegeben.';
-              $view->display ();
+              $this->registration("Invalide Daten eingegeben.");
           }
       }
 }
-?>

@@ -17,7 +17,7 @@ if (isset($data) && count($data) > 0){
             echo '<img class="thumbnail" src="../var/www/default/gallery.jpg" />';
         }
 
-        echo "<h5 style='text-align: center'>". htmlspecialchars($gallery->name) . "</h5>";
+        echo "<h5 style='text-align: center; '>". htmlspecialchars($gallery->name) . " erstellt von " . htmlspecialchars($gallery->user->benutzername) . "</h5>";
         echo "</div></a>";
     }
 }else{

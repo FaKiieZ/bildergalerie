@@ -6,7 +6,7 @@ $form = new Form($GLOBALS['appurl'] ."/gallery/doSave?gid=" . $gid);
 $button = new ButtonBuilder();
 if (isset($data)) {
     echo "<br>";
-    echo $form->input()->label('Name der Galerie')->name('galleryName')->type('text')->value($data->name)->lblClass($lblClass)->eltClass($eltClass);
+    echo $form->input()->label('Name der Galerie')->name('galleryName')->type('text')->value(htmlspecialchars($data->name))->lblClass($lblClass)->eltClass($eltClass);
     echo $form->checkbox()->name('publiziert')->value("Publiziert")->checked($data->publiziert);
     echo $button->start($lblClass, $eltClass);
     echo $button->label('Speichern')->name('send')->type('submit')->class('btn-default');

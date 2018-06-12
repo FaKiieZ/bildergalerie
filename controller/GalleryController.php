@@ -80,10 +80,20 @@ class GalleryController
         $pictureRepository = new PictureRepository();
         $galleryRepository = new GalleryRepository();
         $gallery = $galleryRepository->readById($gid);
+        $isOwner = true;
+        if ($gallery->kid != $_SESSION['user_id']){
+            $isOwner = false;
+
+            if ($gallery->publiziert == 0){
+                $this->index("Dies dürfen Sie nicht tun!");
+                die();
+            }
+        }
         $view = new View('gallery_view');
-        $view->title = 'Galerie (' . $gallery->name . ')';
-        $view->heading = 'Galerie (' . $gallery->name . ')';
-        $view->data = $pictureRepository->readAllByGalleryId($gid, $_SESSION['user_id']);
+        $view->title = 'Galerie (' . htmlspecialchars($gallery->name) . ')';
+        $view->heading = 'Galerie (' . htmlspecialchars($gallery->name) . ')';
+        $view->data = $pictureRepository->readAllByGalleryId($gid);
+        $view->isOwner = $isOwner;
         $view->display();
     }
 
@@ -94,6 +104,15 @@ class GalleryController
         $view->data = $galleryRepository->readByIdAndKid($_SESSION['user_id'], $gid);
         $view->title = 'Galerie bearbeiten';
         $view->heading = 'Galerie bearbeiten';
+        $view->display();
+    }
+
+    public function showPublic(){
+        $galleryRepository = new GalleryRepository();
+        $view = new View('gallery_public');
+        $view->title = 'Publizierte Galerien';
+        $view->heading = 'Publizierte Galerien';
+        $view->data = $galleryRepository->readAllPublicWithFirstPicture();
         $view->display();
     }
 }

@@ -6,6 +6,7 @@ require_once '../lib/Repository.php';
   class UserRepository extends Repository
   {
       protected $tableName = 'kunde';
+      protected $tableId = 'kid';
       
       // Erstellt einen neuen User in der Datenbank
       public function create($benutzername, $passwort, $email) {

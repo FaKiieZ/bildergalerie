@@ -32,13 +32,17 @@
                 if(isset($_SESSION['besucht']) && $_SESSION['besucht'] == true){
             ?>
                     <li><a href="<?=$GLOBALS['appurl']?>/logout">Logout</a></li>
+                    <li><a href="<?=$GLOBALS['appurl']?>/gallery/showPublic">Publizierte Galerien anzeigen</a></li>
                     <li><a href="<?=$GLOBALS['appurl']?>/gallery/createGallery">Galerie erstellen</a></li>
                     <li><a href="<?=$GLOBALS['appurl']?>/gallery/">Galerien anzeigen</a></li>
-                    <li><a href="<?=$GLOBALS['appurl']?>/picture">Bild hochladen</a></li>
-
-                <?php
+                    <?php
+                        if (isset($_GET['gid'])){
+                    ?>
+                        <li><a href="<?=$GLOBALS['appurl']?>/picture?gid=<?=$_GET['gid']?>">Bild hochladen</a></li>
+            <?php
+                        }
                 }else {
-                ?>
+            ?>
                     <li><a href="<?= $GLOBALS['appurl'] ?>/login">Login</a></li>
                     <li><a href="<?= $GLOBALS['appurl'] ?>/login/registration">Registration</a></li>
                 <?php

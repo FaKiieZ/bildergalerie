@@ -8,23 +8,23 @@ class PictureRepository extends Repository
     protected $tableId = 'bid';
 
     // Foto hochladen
-    public function doUpload($pictureName, $userId, $galleryId)
-    {    	
-        $query = "INSERT INTO $this->tableName (name, kid, gid) VALUES (?, ?, ?)";
+    public function doUpload($pictureName, $userId, $galleryId, $name)
+    {
+        $query = "INSERT INTO $this->tableName (pathName, name, kid, gid) VALUES (?, ?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('sii', $pictureName, $userId, $galleryId);
+        $statement->bind_param('ssii', $pictureName, $name, $userId, $galleryId);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
         }
     }
 
-    public function readAllByGalleryId($gid, $kid){
-        $query = "SELECT bid, name FROM $this->tableName WHERE gid = ? AND kid = ?";
+    public function readAllByGalleryId($gid){
+        $query = "SELECT bid, name, pathName FROM $this->tableName WHERE gid = ?";
         
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ii', $gid, $kid);
+        $statement->bind_param('i', $gid);
         $statement->execute();
 
         $result = $statement->get_result();
@@ -56,5 +56,35 @@ class PictureRepository extends Repository
         $picture = $result->fetch_object();
 
         return $picture;
+    }
+
+    public function readByIdAndKid($kid, $bid){
+
+        $query = "SELECT * FROM $this->tableName WHERE bid = ? AND kid = ?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('ii', $bid, $kid);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        $row = $result->fetch_object();
+
+        return $row;
+    }
+
+    public function update($bid, $userId, $name)
+    {
+        $query = "UPDATE $this->tableName SET name = ? WHERE bid = ? AND kid = ?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('sii', $name, $bid, $userId);
+
+        if (!$statement->execute()) {
+            throw new Exception($statement->error);
+        }
     }
 }

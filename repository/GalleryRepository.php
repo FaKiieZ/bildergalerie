@@ -1,6 +1,6 @@
 <?php
 require_once '../lib/Repository.php';
-require_once 'PictureRepository.php';
+require_once 'UserRepository.php';
 
     class GalleryRepository extends Repository
     {
@@ -8,11 +8,11 @@ require_once 'PictureRepository.php';
         protected $tableId = 'gid';
 
         public function create($kid, $gname, $publiziert){
-
+            $isPublic = intval($publiziert);
             $query = "INSERT INTO $this->tableName (kid, name, publiziert) VALUES (?, ?, ?)";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('isb', $kid, $gname, $publiziert);
+            $statement->bind_param('isi', $kid, $gname, $isPublic);
 
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);
@@ -22,11 +22,11 @@ require_once 'PictureRepository.php';
         }
 
         public function updateGallery($kid, $gid, $gname, $publiziert){
-
-            $query = "UPDATE $this->tableName SET $gname, $publiziert WHERE gid = ? and kid = ?";
+            $isPublic = intval($publiziert);
+            $query = "UPDATE $this->tableName SET name = ?, publiziert = ? WHERE gid = ? and kid = ?";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
-            $statement->bind_param('iisb', $gid, $kid, $gname, $publiziert);
+            $statement->bind_param('siii', $gname, $isPublic, $gid, $kid);
 
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);
@@ -36,7 +36,6 @@ require_once 'PictureRepository.php';
         }
 
         public function readByIdAndKid($kid, $gid){
-
             $query = "SELECT * FROM $this->tableName WHERE gid = ? AND kid = ?";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
@@ -53,11 +52,12 @@ require_once 'PictureRepository.php';
             return $row;
         }
 
-        public function readAllWithFirstPicture()
+        public function readAllWithFirstPictureByKid($kid)
         {
-            $query = "SELECT * FROM $this->tableName";
+            $query = "SELECT * FROM $this->tableName WHERE kid = ?";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('i', $kid);
             $statement->execute();
 
             $result = $statement->get_result();
@@ -73,7 +73,7 @@ require_once 'PictureRepository.php';
                 $picture = $pictureRepository->readFirstPictureOfGallery($row->gid);
 
                 if ($picture != null){
-                    $row->firstPictureName = $picture->name;
+                    $row->firstPictureName = $picture->pathName;
                 }
 
                 $rows[] = $row;
@@ -82,7 +82,6 @@ require_once 'PictureRepository.php';
         }
 
         public function deleteByIdAndKid($gid, $kid){
-
             $query = "DELETE FROM $this->tableName WHERE (gid, kid) = (?,?)";
 
             $statement = ConnectionHandler::getConnection()->prepare($query);
@@ -91,6 +90,36 @@ require_once 'PictureRepository.php';
             if (!$statement->execute()) {
                 throw new Exception ($statement->error);
             }
+        }
+
+        public function readAllPublicWithFirstPicture(){
+            $query = "SELECT * FROM $this->tableName WHERE publiziert = 1";
+
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->execute();
+
+            $result = $statement->get_result();
+            if (!$result) {
+                throw new Exception($statement->error);
+            }
+
+            // Datensätze aus dem Resultat holen und in das Array $rows speichern
+            $rows = array();
+            while ($row = $result->fetch_object()) {
+                $userRepository = new UserRepository();
+                $pictureRepository = new PictureRepository();
+
+                $user = $userRepository->readById($row->kid);
+                $row->user = $user;
+
+                $picture = $pictureRepository->readFirstPictureOfGallery($row->gid);
+                if ($picture != null){
+                    $row->firstPictureName = $picture->pathName;
+                }
+
+                $rows[] = $row;
+            }
+            return $rows;
         }
     }
 ?>

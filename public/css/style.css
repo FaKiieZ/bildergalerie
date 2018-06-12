@@ -13,17 +13,30 @@ body {
 
 .thumbnail{
     margin-left: 15%;
-    margin-top: 20px;
+    margin-top: 40px;
     object-fit: cover;
     height: 230px;
     width: 230px;
 }
 
 .pictureDeleteButton {
-    margin-top: 255px;
-    margin-left: -75px;
+    margin-top: 275px;
 }
 
 .content {
     margin-bottom: 20px;
+}
+
+.picture-name {
+    position: absolute;
+    margin-top: 15px;
+    margin-left: -80px;
+    width: 230px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.picture-btn-group {
+    margin-left: -75px;
 }

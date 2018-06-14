@@ -123,8 +123,7 @@ require_once 'UserRepository.php';
         }
 
         public function readWithUserById($gid){
-            $query = "SELECT * FROM $this->tableName WHERE publiziert = 1 AND gid = ?";
-
+            $query = "SELECT * FROM $this->tableName WHERE gid = ?";
             $statement = ConnectionHandler::getConnection()->prepare($query);
             $statement->bind_param('i', $gid);
             $statement->execute();
